@@ -7,13 +7,13 @@ from langchain.agents import initialize_agent, Tool, AgentType
 
 def lookup(name: str) -> str:
     llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
-    template = """given the full name {name_of_person} I want you to get me a link to their linkedin profile page.
-                    your answer should contain only a URL"""
+    template = """given the name {name_of_person} I want you to get me a link to their twitter profile page and extract
+                    their username. your answer should only contain the person's username"""
     tools_for_agent = [
         Tool(
-            name="Crawl Google for linkedin profile page",
+            name="Crawl Google for twitter profile page",
             func=get_profile_url,
-            description="useful for when you need to get the linkedin page URL",
+            description="useful for when you need to get the twitter page URL",
         )
     ]
 
@@ -26,6 +26,6 @@ def lookup(name: str) -> str:
     prompt_template = PromptTemplate(
         template=template, input_variables=["name_of_person"]
     )
-    linkedin_profile_url = agent.run(prompt_template.format_prompt(name_of_person=name))
+    twitter_username = agent.run(prompt_template.format_prompt(name_of_person=name))
 
-    return linkedin_profile_url
+    return twitter_username
