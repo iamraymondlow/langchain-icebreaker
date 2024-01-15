@@ -1,5 +1,5 @@
-from langchain import PromptTemplate
-from langchain.chat_models import ChatOpenAI
+from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
 from tools.tools import get_profile_url
 
 from langchain.agents import initialize_agent, Tool, AgentType
